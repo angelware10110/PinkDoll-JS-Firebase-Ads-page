@@ -1,1 +1,2 @@
-# PinkDoll-Ads-page
+༺꧁༒•꧁༒☬ᑭIᑎK~ᗪOᒪᒪ ᗩᗪᔕ ᑭᗩGE
+GET YOᑌᖇ ᗷᒪEᔕᔕIᑎGᔕ ᕼEᖇE!☬༒꧂•༒꧂༻
