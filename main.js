@@ -2,13 +2,17 @@ console.log("test")
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getDatabase, set, update, ref } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { getDatabase, set, update, ref } 
+
+from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
 import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut
+
 } from
     "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -20,6 +24,8 @@ import { firebaseConfig } from "./firebase.js"
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
+
+console.log(app)
 
 //new user registration
 const registerNewUser = () => {
@@ -101,3 +107,4 @@ document.getElementById('signOut').addEventListener('click', () => {
         console.log(errorMessage);
     });
 })
+
