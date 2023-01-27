@@ -88,6 +88,9 @@ onAuthStateChanged(auth, (user) => {
         const uid = user.uid;
         console.log(uid)
         console.log("useris prisijunges")
+
+// cia ifukas kuris sako if (admin) tai viuenas jei ne tai kitas if (role === admin )
+
     } else {
         console.log("useris atsijunge")
         // User is signed out
@@ -108,3 +111,28 @@ document.getElementById('signOut').addEventListener('click', () => {
     });
 })
 
+
+// //new user registration
+// const createNewCategory = () => {
+//     const register_username = document.getElementById('register_username').value;
+//     const register_email = document.getElementById('register_email').value;
+//     const register_password = document.getElementById('register_password').value;
+
+//     createUserWithEmailAndPassword(auth, register_email, register_password)
+//         .then((userCredential) => {
+//             // Signed in 
+//             const user = userCredential.user;
+
+//             set(ref(database, 'users/' + user.uid), {
+//                 user_email: register_email,
+//                 user_username: register_username
+//             });
+//             console.log('New User created!')
+//         })
+//         .catch((error) => {
+//             const errorCode = error.code;
+//             const errorMessage = error.message;
+//             console.log(errorMessage);
+//         });
+// }
+// document.getElementById('signUp').addEventListener('click', registerNewUser);
