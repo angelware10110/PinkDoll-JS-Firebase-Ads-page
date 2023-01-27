@@ -88,12 +88,9 @@ onAuthStateChanged(auth, (user) => {
         const uid = user.uid;
         console.log(uid)
         console.log("useris prisijunges")
-<<<<<<< HEAD
 
 // cia ifukas kuris sako if (admin) tai viuenas jei ne tai kitas if (role === admin )
 
-=======
->>>>>>> 032eb4dbd64bcdf7b963d8457ae3dcf59dad2cb1
     } else {
         console.log("useris atsijunge")
         // User is signed out
@@ -114,7 +111,6 @@ document.getElementById('signOut').addEventListener('click', () => {
     });
 })
 
-<<<<<<< HEAD
 
 // //new user registration
 // const createNewCategory = () => {
@@ -140,5 +136,3 @@ document.getElementById('signOut').addEventListener('click', () => {
 //         });
 // }
 // document.getElementById('signUp').addEventListener('click', registerNewUser);
-=======
->>>>>>> 032eb4dbd64bcdf7b963d8457ae3dcf59dad2cb1
