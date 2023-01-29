@@ -5,41 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angelic Ads</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
     crossorigin="anonymous">
-    <script type= "module" src="./firebase.js" defer></script>
-    <script type = "module" src="./main.js" defer></script>
-    <script type = "module" src="./user-presence.js" defer></script>    
+    <script type = "module" src="./modules/firebase.js" defer></script>
+    <script type= "module" src="./modules/main.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div id="login-box">
-        <div class="left">
-          <!-- register -->
-          <h1 id='status'>Register</h1>
-          <input type="text" id="register_username"  placeholder="Username" />
-          <input type="text" id="register_email"  placeholder="E-mail" />
-          <input type="password" id="register_password"  placeholder="Password" />
-          
-          <input type="submit" id='signUp' name="signup_submit" value="Sign Up" />
-          
-        </div>
-        
-        <div class="right">
-          <!-- Login -->
-          <h1 >Login</h1>
-          <input type="text" id="login_email"  placeholder="E-mail" />
-          <input type="password" id="login_password"  placeholder="Password" />
-          
-          <input type="submit" id='signIn'  value="Sign In" />
-          <input type="submit" id='signOut'  value="Sign Out" />
-        </div>
-      </div>
 
   <!--Auth Form starts-->
-  <div id="login-box">
+  <div id="login-box" class="login-box">
     <div class="left">
           <!-- register -->
           <h1 id='status'>Register</h1>
@@ -57,7 +33,7 @@
               <label for="exampleInputPassword1" class="form-label">Password</label>
               <input type="password" class="form-control" id="register_password">
             </div>
-            <button type="submit" id="signUp" name="signup_submit" value="Sign Up" class="btn btn-primary--bs-danger-bg-subtle ">Log-in</button>
+            <button type="submit" id="signUp" name="signup_submit" value="Sign Up" class="btn">Log-in</button>
           </form>
         </div>
         
@@ -73,8 +49,8 @@
               <label for="exampleInputPassword1" class="form-label">Password</label>
               <input type="password" class="form-control" id="login_password">
             </div>
-            <button type="submit" id="signIn" value="Sign In" name="signup_submit" value="Sign Up" class="btn btn-primary--bs-danger-bg-subtle ">Sign-in</button>
-            <button type="submit" id="signOut" value="Sign Out" name="signup_submit" value="Sign Up" class="btn btn-primary--bs-danger-bg-subtle ">Sign-Out</button>
+            <button type="submit" id="signIn" value="Sign In" name="signup_submit" value="Sign Up" class="btn">Sign-in</button>
+            <button type="submit" id="signOut" value="Sign Out" name="signup_submit" value="Sign Up" class="logoutBtn">Sign-Out</button>
           </form>
         </div>
       </div>
@@ -82,6 +58,20 @@
 
 
 
+  <!--Create Category Form ends-->
+
+          <h1 >Create a new category</h1>
+          <form>
+            <div class="mb-3">
+              <label for="newCategory" class="form-label">Category</label>
+              <input type="text" class="form-control" id="create_category" aria-describedby="emailHelp">
+            </div>
+            <button type="submit" id="category" value="category" name="category" value="category" class="btn">Apply</button>
+          </form>
+        </div>
+      </div>
+
+  <!--Create Category ends-->
 
 
 

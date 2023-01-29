@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
+body{
+  background: rgb(255, 211, 211);
+  font-family: 'PT Sans', sans-serif;
+}
+.login-box{
+    display: block;
+    justify-content: center;
+}
+h1{
+  padding-top: 1.5rem;
+}
+a{
+  color: rgb(149, 88, 88);
+}
+a:hover{
+  color: #644c4f;
+  text-decoration: none;
+}
+.card{
+  border: 0.40rem solid #80895d;
+  top: 10%;
+}
+.form-control{
+  background-color: #92bce6;
+  padding: 20px;
+  padding: 25px 15px;
+  margin-bottom: 1.3rem;
+}
+
+.form-select {
+  padding: 10px;
+}
+
+
+.form-control:focus {
+  color: #000000;
+  background-color: #ffffff;
+  border: 3px solid #da5767;
+  outline: 0;
+  box-shadow: none;
+}
+
+.btn{
+  padding: 0.6rem 1.2rem;
+  background: #d8929b;
+  border: 2px solid #da5767;
+}
+.btn-primary:hover {
+  background-color: #df8c96;
+  border-color: #df8c96;
+  transition: .3s;
+}
+
+.logoutBtn {
+  float: right;
+  margin: 15px;
+  color: #36050b;
+  font-size: 30px;
+  animation: bounce 2s ease-in-out infinite;
+  
+}
+
+.logoutBtn:hover {
+  cursor: pointer;
+  color:#9f2f3c;
+  transition: .3s;
+}
+
+
+@keyframes bounce {
+  0% {
+    transform: scale(2);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -17,7 +17,10 @@ import {
     "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
-import { firebaseConfig } from "./firebase.js"
+import { firebaseConfig } from "./firebase"
+
+import { createCategoryForm } from "./createCategoryForm."
+
 
 
 // Initialize Firebase, database, authentication
@@ -77,6 +80,7 @@ const loginUser = () => {
 document.getElementById('signIn').addEventListener('click', loginUser);
 
 //geting signed-in user
+//creating new categories
 const user = auth.currentUser;
 console.log(auth)
 onAuthStateChanged(auth, (user) => {
@@ -88,9 +92,37 @@ onAuthStateChanged(auth, (user) => {
         const uid = user.uid;
         console.log(uid)
         console.log("useris prisijunges")
-
-// cia ifukas kuris sako if (admin) tai viuenas jei ne tai kitas if (role === admin )
-
+        //if the an user is logged in, the sign out button shall appear
+        createLogOutIcon();
+        document.getElementById('signOut').addEventListener('click', logOut);
+        //role of an user?
+        get(ref(database, 'users/' + user.uid))
+            .then((snapshot) => {
+                const userData = snapshot.val();
+                if (userData.role === 'admin') {
+                    console.log(userData.role);
+                    createCategoryForm();
+                    const createCategory = (e) => {
+                        e.preventDefault();
+                        const create_category = document.getElementById('create_category').value;
+                        console.log(create_category)
+                        push(ref(database, 'categories'), {
+                            name: create_category,
+                        })
+                            .then(console.log( `saved ${create_category}`))
+                            .catch((error) => {
+                                console.log(error);
+                            })}
+                    }
+                    document.getElementById('category').addEventListener('click', createCategory);
+                }
+            )///
+            .catch((error) => {
+                console.log(error);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            })
     } else {
         console.log("useris atsijunge")
         // User is signed out
@@ -98,6 +130,7 @@ onAuthStateChanged(auth, (user) => {
         //cia turi issiremovint ir susikurt user register forma
     }
 });
+
 
 //user sign-out
 document.getElementById('signOut').addEventListener('click', () => {
@@ -110,29 +143,3 @@ document.getElementById('signOut').addEventListener('click', () => {
         console.log(errorMessage);
     });
 })
-
-
-// //new user registration
-// const createNewCategory = () => {
-//     const register_username = document.getElementById('register_username').value;
-//     const register_email = document.getElementById('register_email').value;
-//     const register_password = document.getElementById('register_password').value;
-
-//     createUserWithEmailAndPassword(auth, register_email, register_password)
-//         .then((userCredential) => {
-//             // Signed in 
-//             const user = userCredential.user;
-
-//             set(ref(database, 'users/' + user.uid), {
-//                 user_email: register_email,
-//                 user_username: register_username
-//             });
-//             console.log('New User created!')
-//         })
-//         .catch((error) => {
-//             const errorCode = error.code;
-//             const errorMessage = error.message;
-//             console.log(errorMessage);
-//         });
-// }
-// document.getElementById('signUp').addEventListener('click', registerNewUser);
