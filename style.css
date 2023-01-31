@@ -5,14 +5,21 @@ body{
   font-family: 'PT Sans', sans-serif;
 }
 .login-box{
-    display: block;
-    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+mb-3{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly; 
 }
 h1{
   padding-top: 1.5rem;
 }
+
 a{
-  color: rgb(149, 88, 88);
+  color: rgb(248, 243, 243);
 }
 a:hover{
   color: #644c4f;
@@ -23,7 +30,7 @@ a:hover{
   top: 10%;
 }
 .form-control{
-  background-color: #92bce6;
+  background-color: #ffffff;
   padding: 20px;
   padding: 25px 15px;
   margin-bottom: 1.3rem;
@@ -32,8 +39,6 @@ a:hover{
 .form-select {
   padding: 10px;
 }
-
-
 .form-control:focus {
   color: #000000;
   background-color: #ffffff;
@@ -67,16 +72,15 @@ a:hover{
   color:#9f2f3c;
   transition: .3s;
 }
+/* @keyframes bounce {
+    0% {
+      transform: scale(2);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  } */
 
-
-@keyframes bounce {
-  0% {
-    transform: scale(2);
-  }
-  50% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
-  }
-}

@@ -2,7 +2,7 @@ console.log("test")
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getDatabase, set, update, ref } 
+import { getDatabase, set, update, ref, get, push } 
 
 from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
@@ -17,9 +17,10 @@ import {
     "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
-import { firebaseConfig } from "./firebase"
+import { firebaseConfig } from "./firebase.js"
+import { createCategoryForm } from "./createCategoryForm.js"
+import { createRegisterLoginForm, createLogOutIcon } from "./registerForm.js"
 
-import { createCategoryForm } from "./createCategoryForm."
 
 
 
@@ -40,10 +41,12 @@ const registerNewUser = () => {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-
+            const loginTime = new Date()
             set(ref(database, 'users/' + user.uid), {
                 user_email: register_email,
-                user_username: register_username
+                role: "simple_user",
+                user_username: register_username,
+                timestamp: ` ${loginTime} `
             });
             console.log('New User created!')
         })
@@ -66,7 +69,7 @@ const loginUser = () => {
             const user = userCredential.user;
             const loginTime = new Date()
             update(ref(database, 'users/' + user.uid), {
-                last_login: loginTime
+                timestamp: ` ${loginTime} `
 
             });
             console.log(user, "Login successful!");
@@ -85,38 +88,44 @@ const user = auth.currentUser;
 console.log(auth)
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        //write your code what user can do 
-        //or what kind of functionalities can see when he is login
         const uid = user.uid;
         console.log(uid)
         console.log("useris prisijunges")
+
+        document.getElementById('login-box').remove();
         //if the an user is logged in, the sign out button shall appear
         createLogOutIcon();
+        
         document.getElementById('signOut').addEventListener('click', logOut);
+    
         //role of an user?
         get(ref(database, 'users/' + user.uid))
             .then((snapshot) => {
                 const userData = snapshot.val();
-                if (userData.role === 'admin') {
+                if (userData.role === "admin") {
+                    console.log("You are Admin") 
                     console.log(userData.role);
+
                     createCategoryForm();
-                    const createCategory = (e) => {
+                    const addCategory = (e) => {
                         e.preventDefault();
                         const create_category = document.getElementById('create_category').value;
                         console.log(create_category)
-                        push(ref(database, 'categories'), {
+                        const adTime = new Date();
+                        
+                        push(ref(database, 'categories/' + category.uid), {
                             name: create_category,
+                            timestamp: `${adTime}`
                         })
                             .then(console.log( `saved ${create_category}`))
                             .catch((error) => {
                                 console.log(error);
                             })}
+                            document.getElementById('category').addEventListener('click', addCategory);
+
                     }
-                    document.getElementById('category').addEventListener('click', createCategory);
                 }
-            )///
+            )
             .catch((error) => {
                 console.log(error);
                 const errorCode = error.code;
@@ -131,15 +140,14 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-
 //user sign-out
-document.getElementById('signOut').addEventListener('click', () => {
+const logOut = () => {
     signOut(auth).then(() => {
         // Sign-out successful.
         alert('Sign-out successful!')
     }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // console.log(errorMessage);
     });
-})
+}
