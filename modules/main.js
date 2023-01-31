@@ -2,7 +2,16 @@ console.log("test")
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getDatabase, set, update, ref, get, push } 
+
+import { 
+        getDatabase,
+        set, 
+        update, 
+        ref, 
+        get, 
+        push,
+        onValue
+    } 
 
 from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
@@ -105,15 +114,13 @@ onAuthStateChanged(auth, (user) => {
                 if (userData.role === "admin") {
                     console.log("You are Admin") 
                     console.log(userData.role);
-
                     createCategoryForm();
                     const addCategory = (e) => {
                         e.preventDefault();
                         const create_category = document.getElementById('create_category').value;
                         console.log(create_category)
                         const adTime = new Date();
-                        
-                        push(ref(database, 'categories/' + category.uid), {
+                        push(ref(database, 'categories/'), {
                             name: create_category,
                             timestamp: `${adTime}`
                         })
@@ -123,6 +130,41 @@ onAuthStateChanged(auth, (user) => {
                             })}
                             document.getElementById('category').addEventListener('click', addCategory);
 
+                            onValue(ref(database, "categories/", (snapshot) => {
+                                let categories = snapshot.val()
+                                let categoriesTable = document.getElementById("table");
+                                categoriesTable.innerHTML = "";
+                                let thRow = document.createElement("thead");
+                                thRow.innerHTML = `
+                                                <tr class="my-3">
+                                                    <th scope="col">Category name</th>
+                                                    <th scope="col">Remove Category</th
+                                                </tr>
+                                `
+                                categoriesTable.appendChild(thRow);
+                                for (let i in categories) {
+                                    let categoriesTr = document.createElement("tr");
+                                    categoriesTr.className = "table-secondary";
+                                    let categoriesTd = document.createElement("td");
+                                    categoriesTd.innerText = categories[i].name;
+                                    let categoryTd = document.createElement("td");
+                                    let categoryDelete = document.createElement("button");
+                                    categoryDelete.classList.add.add("btn", "btn-outline-danger");
+                                    categoryDelete.textContent = "Kill";
+                                    categoryTd.appendChild(categoryDelete);
+
+                                    function deleteCategory() {
+                                        remove(ref(database, "categories/" + i))
+                                        console.log("Category removed");
+                                    }
+                                    categoryDelete.parentNode.addEventListener("click", deleteCategory);
+                                    categoriesTr.appendChild(categoriesTd);
+                                    categoriesTr.appendChild(categoryTd);
+                                    categoriesTable.appendChild(categoriesTr);
+                                }
+
+
+                            }))
                     }
                 }
             )
@@ -132,12 +174,9 @@ onAuthStateChanged(auth, (user) => {
                 const errorMessage = error.message;
                 console.log(errorMessage);
             })
-    } else {
-        console.log("useris atsijunge")
-        // User is signed out
-        // ...
-        //cia turi issiremovint ir susikurt user register forma
-    }
+
+
+    } 
 });
 
 //user sign-out

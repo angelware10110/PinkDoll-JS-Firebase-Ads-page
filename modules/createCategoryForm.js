@@ -25,6 +25,7 @@ const createCategoryForm = () => {
     formCategory.appendChild(categoryBtn);
     place.appendChild(formCategory);
 
+
     
 
 }

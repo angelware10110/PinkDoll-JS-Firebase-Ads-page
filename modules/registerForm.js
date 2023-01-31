@@ -18,7 +18,7 @@ const createLogOutIcon = () => {
     document.getElementById('root').innerHTML = ` 
             <div class="row">
                 <div class="offset-11 col-1">
-                    <i class="bi bi-door-open" id="signOut"></i>
+                    <i class="bi bi-arrow-through-heart" id="signOut"></i>
                 </div>
             </div>
     `
