@@ -25,9 +25,10 @@ const createCategoryForm = () => {
     formCategory.appendChild(categoryBtn);
     place.appendChild(formCategory);
 
-
-    
-
+    let categoriesTable = document.createElement("table");
+    categoriesTable.id = "table";
+    categoriesTable.classList.add("table", "my-5");
+    place.appendChild(categoriesTable);
 }
 
 export { createCategoryForm }

@@ -10,7 +10,8 @@ import {
         ref, 
         get, 
         push,
-        onValue
+        onValue,
+        remove
     } 
 
 from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
@@ -130,7 +131,7 @@ onAuthStateChanged(auth, (user) => {
                             })}
                             document.getElementById('category').addEventListener('click', addCategory);
 
-                            onValue(ref(database, "categories/", (snapshot) => {
+                            onValue(ref(database, "categories/"), (snapshot) => {
                                 let categories = snapshot.val()
                                 let categoriesTable = document.getElementById("table");
                                 categoriesTable.innerHTML = "";
@@ -138,7 +139,7 @@ onAuthStateChanged(auth, (user) => {
                                 thRow.innerHTML = `
                                                 <tr class="my-3">
                                                     <th scope="col">Category name</th>
-                                                    <th scope="col">Remove Category</th
+                                                    <th scope="col">Kill</th
                                                 </tr>
                                 `
                                 categoriesTable.appendChild(thRow);
@@ -149,7 +150,7 @@ onAuthStateChanged(auth, (user) => {
                                     categoriesTd.innerText = categories[i].name;
                                     let categoryTd = document.createElement("td");
                                     let categoryDelete = document.createElement("button");
-                                    categoryDelete.classList.add.add("btn", "btn-outline-danger");
+                                    categoryDelete.classList.add("btn", "btn-outline-danger");
                                     categoryDelete.textContent = "Kill";
                                     categoryTd.appendChild(categoryDelete);
 
@@ -157,14 +158,16 @@ onAuthStateChanged(auth, (user) => {
                                         remove(ref(database, "categories/" + i))
                                         console.log("Category removed");
                                     }
+
                                     categoryDelete.parentNode.addEventListener("click", deleteCategory);
+
                                     categoriesTr.appendChild(categoriesTd);
                                     categoriesTr.appendChild(categoryTd);
                                     categoriesTable.appendChild(categoriesTr);
                                 }
 
 
-                            }))
+                            })
                     }
                 }
             )
@@ -176,7 +179,12 @@ onAuthStateChanged(auth, (user) => {
             })
 
 
-    } 
+    } else {
+        createRegisterLoginForm();
+        document.getElementById('user_register').addEventListener('click', registerNewUser);
+        document.getElementById('user_login').addEventListener('click', loginUser);
+        //cia turi issiremovint ir susikurt user register forma
+    }
 });
 
 //user sign-out
