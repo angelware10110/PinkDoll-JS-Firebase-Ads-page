@@ -39,11 +39,11 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
 
-console.log(app)
+// console.log(app)
+createRegisterLoginForm();
 
 //new user registration
 const registerNewUser = () => {
-    const register_username = document.getElementById('register_username').value;
     const register_email = document.getElementById('register_email').value;
     const register_password = document.getElementById('register_password').value;
 
@@ -55,7 +55,6 @@ const registerNewUser = () => {
             set(ref(database, 'users/' + user.uid), {
                 user_email: register_email,
                 role: "simple_user",
-                user_username: register_username,
                 timestamp: ` ${loginTime} `
             });
             console.log('New User created!')
@@ -193,8 +192,8 @@ const logOut = () => {
         // Sign-out successful.
         alert('Sign-out successful!')
     }).catch((error) => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // console.log(errorMessage);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
     });
 }
