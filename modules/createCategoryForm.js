@@ -1,6 +1,6 @@
 const createCategoryForm = () => {
 
-    //info for admin
+    //info for the admin
     const infoForAdmin = document.createElement('div');
     infoForAdmin.innerText = "You are an Admin";
     infoForAdmin.classList.add("my-3", "navbar", "navbar-light");

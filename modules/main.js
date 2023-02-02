@@ -26,20 +26,18 @@ import {
 } from
     "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
-import { firebaseConfig } from "./firebase.js"
+import { firebaseConfig } from "./firebase.js" //  web app's Firebase configuration
 import { createCategoryForm } from "./createCategoryForm.js"
-import { createRegisterLoginForm, createLogOutIcon } from "./registerForm.js"
-
-
+import { createRegisterLoginForm, createLogOutIcon } from "./registerUserForm.js"
+import { createProductForm } from "./createProductForm.js"
 
 
 // Initialize Firebase, database, authentication
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth();
-
 // console.log(app)
+
 createRegisterLoginForm();
 
 //new user registration
@@ -102,17 +100,19 @@ onAuthStateChanged(auth, (user) => {
         console.log("useris prisijunges")
 
         document.getElementById('login-box').remove();
+
         //if the an user is logged in, the sign out button shall appear
         createLogOutIcon();
-        
+
         document.getElementById('signOut').addEventListener('click', logOut);
     
         //role of an user?
         get(ref(database, 'users/' + user.uid))
             .then((snapshot) => {
                 const userData = snapshot.val();
+                
                 if (userData.role === "admin") {
-                    console.log("You are Admin") 
+                    console.log("You are Godess") 
                     console.log(userData.role);
                     createCategoryForm();
                     const addCategory = (e) => {
@@ -163,26 +163,90 @@ onAuthStateChanged(auth, (user) => {
                                     categoriesTr.appendChild(categoriesTd);
                                     categoriesTr.appendChild(categoryTd);
                                     categoriesTable.appendChild(categoriesTr);
+                                 
                                 }
+                         })
+                         
+                         
+                } else {
+                        console.log("You are Fallen Angel") 
+                        console.log(userData.role);
 
+                        createProductForm();
+                        const addAd = (e) => {
+                            e.preventDefault();
 
+                            const create_ad = document.getElementById('create_ad').value;
+                            console.log(create_ad)
+
+                            const adTime = new Date();
+
+                            push(ref(database, 'ads/'), {
+                                name: create_ad,
+                                timestamp: `${adTime}`
                             })
+                                .then(console.log( `saved ${create_ad}`))
+                                .catch((error) => {
+                                    console.log(error);
+                                })}
+                                document.getElementById('ad').addEventListener('click', addAd);
+
+                                onValue(ref(database, "ads/"), (snapshot) => {
+                                    let ads = snapshot.val()
+
+                                    let adsTable = document.getElementById("table");
+                                    adsTable.innerHTML = "";
+                                    let thRow = document.createElement("thead");
+                                    thRow.innerHTML = `
+                                                    <tr class="my-3">
+                                                        <th scope="col">Product</th>
+                                                        <th scope="col">Kill</th
+                                                    </tr>
+                                    `
+                                    adsTable.appendChild(thRow);
+
+                                    for (let i in ads) {
+                                        let adsTr = document.createElement("tr");
+                                        adsTr.className = "table-secondary";
+                                        let adsTd = document.createElement("td");
+                                        adsTd.innerText = ads[i].name;
+                                        let adTd = document.createElement("td");
+                                        let adDelete = document.createElement("button");
+                                        adDelete.classList.add("btn", "btn-outline-danger");
+                                        adDelete.textContent = "Kill";
+                                        adTd.appendChild(adDelete);
+
+                                        function deleteAd() {
+                                            remove(ref(database, "ads/" + i))
+                                            console.log("Ad removed");
+                                        }
+
+                                        adDelete.parentNode.addEventListener("click", deleteAd);
+
+                                        adsTr.appendChild(adsTd);
+                                        adsTr.appendChild(adTd);
+                                        adsTable.appendChild(adsTr);
+                                    }
+                                    })
+                
                     }
-                }
-            )
+            })
             .catch((error) => {
                 console.log(error);
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage);
-            })
+            });
 
 
-    } else {
+    } 
+    else {
+        
         createRegisterLoginForm();
         document.getElementById('user_register').addEventListener('click', registerNewUser);
         document.getElementById('user_login').addEventListener('click', loginUser);
         //cia turi issiremovint ir susikurt user register forma
+        
     }
 });
 
